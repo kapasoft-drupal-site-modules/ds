@@ -1,0 +1,9 @@
+name = DesignsSquare.com Site
+description = custom modules for DesignsSquare.com
+core = 7.x
+version = 7.x-0.1-dev
+project = designssquare_com_ds
+package = DesignsSquare.com.sites
+
+dependencies[] = views_distinct
+

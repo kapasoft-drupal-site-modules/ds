@@ -1,0 +1,50 @@
+<?php
+
+define('DS_MOD_PATH', drupal_get_path('module', 'designssquare_com_ds'));
+
+
+/*****CREATING BLOCK********/
+function designssquare_com_ds_block_info(){
+    $blocks = array();
+    $blocks['ds_chat'] = array(
+        'info' => t('DesignsSquare.com: Chat Widget'),//admin ui block name
+//        'properties' => array('administrative' => TRUE),
+//        'cache' => BLOCK_CACHE_GLOBAL,
+    );
+    $blocks['ds_satisfaction_guaranteed'] = array(
+        'info' => t('DesignsSquare.com: Satisfaction Guaranteed'),//admin ui block name
+//        'properties' => array('administrative' => TRUE),
+    );
+
+    return $blocks;
+}
+
+
+function designssquare_com_ds_block_view($delta = ''){
+    $block = array();
+    switch($delta){
+        case 'ds_satisfaction_guaranteed':
+        case 'ds_chat':
+            $block['subject'] = t('');
+            $block['content'] = build_ds_widget($delta);
+            break;
+    }
+
+    return $block;
+}
+
+function build_ds_widget($delta){
+    $output = '';
+    switch($delta){
+        case 'ds_chat':
+            $output .= theme_render_template(DS_MOD_PATH.'/templates/block--ds-chat-widget.tpl.php', array());
+            break;
+        case 'ds_satisfaction_guaranteed':
+            drupal_add_css(DS_MOD_PATH.'/assets/css/satisfaction-guaranteed.css', array('group' => CSS_THEME+10, 'type' => 'file'));
+            $output .= theme_render_template(DS_MOD_PATH.'/templates/block--ds-satisfaction-guaranteed-widget.tpl.php', array());
+            break;
+    }
+    return $output;
+}
+
+
